@@ -1,7 +1,8 @@
 services:
   techstore-web:
     build: .
+    image: phamdat01/techstore:latest
     container_name: techstore_frontend
     restart: always
     ports:
-      - "8080:80"
+      - "8085:80"
