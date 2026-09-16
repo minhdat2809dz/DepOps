@@ -1,0 +1,7 @@
+services:
+  techstore-web:
+    build: .
+    container_name: techstore_frontend
+    restart: always
+    ports:
+      - "8080:80"

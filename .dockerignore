@@ -1,0 +1,8 @@
+.git
+.gitignore
+.vscode
+.github
+*.bat
+README.md
+Dockerfile
+docker-compose.yml
