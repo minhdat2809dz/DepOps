@@ -1,19 +1,39 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStore - Cửa Hàng Thiết Bị Công Nghệ Chính Hãng</title>
-  <meta name="description" content="TechStore - Mua sắm điện thoại, laptop, thiết bị âm thanh và đồng hồ thông minh chính hãng với giá tốt nhất.">
+  <title>TechStore VIP PRO - Cửa Hàng Thiết Bị Công Nghệ Flagship Chính Hãng 2026</title>
+  <meta name="description" content="TechStore VIP PRO - Hệ thống bán lẻ thiết bị công nghệ đỉnh cao: iPhone 16 Pro Max, MacBook Pro M3 Max, ROG Gaming, Âm thanh Hi-End Marshall & B&O, Apple Vision Pro.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ==================== HEADER ==================== -->
+  <!-- ==================== TOP ANNOUNCEMENT BAR VIP ==================== -->
+  <div class="top-announcement-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <div class="announcement-text">
+          <span class="fire-icon">🔥</span>
+          <span><strong>VIP DEAL 2026:</strong> Nhập mã <code class="copyable-code" onclick="applyAndNotify('TECHSALE10')">TECHSALE10</code> giảm 10% | <code class="copyable-code" onclick="applyAndNotify('VIPPRO')">VIPPRO</code> giảm ngay 1.000.000đ | Giao hàng 1H toàn quốc</span>
+        </div>
+        <div class="top-bar-links">
+          <a href="tel:18006868">📞 Hotline: 1800 6868 (VIP 24/7)</a>
+          <a href="#!" onclick="openOrderHistoryModal()">📦 Tra cứu đơn hàng</a>
+          <a href="admin.html">⚙️ Quản trị Admin</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== HEADER GLASSMORPHISM ==================== -->
   <header class="header">
     <div class="container">
       <div class="header-inner">
-        <!-- Logo -->
+        <!-- Logo thương hiệu -->
         <a href="index.html" class="brand-logo">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -21,92 +41,312 @@
             <polyline points="2 12 12 17 22 12"></polyline>
           </svg>
           Tech<span>Store</span>
+          <span class="vip-logo-badge">VIP PRO</span>
         </a>
 
-        <!-- Thanh tìm kiếm -->
+        <!-- Thanh tìm kiếm Live Search có Autocomplete -->
         <div class="search-wrapper">
-          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm điện thoại, laptop, tai nghe...">
+          <div class="search-input-box">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm iPhone 16, MacBook M3, ROG, Sony, Marshall..." autocomplete="off">
+            <button id="search-clear-btn" class="search-clear-btn" style="display: none;" title="Xóa tìm kiếm">&times;</button>
+          </div>
+          <!-- Dropdown gợi ý autocomplete -->
+          <div id="search-suggestions" class="search-suggestions-dropdown" style="display: none;"></div>
         </div>
 
-        <!-- Nút tài khoản người dùng, Quản trị & Giỏ hàng -->
+        <!-- Các nút thao tác VIP Header -->
         <div class="header-actions">
+          <!-- Chuyển đổi Dark / Light Theme -->
+          <button id="theme-toggle-btn" class="header-action-btn" onclick="toggleTheme()" title="Đổi giao diện Sáng / Tối">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+
+          <!-- So sánh sản phẩm -->
+          <button id="compare-toggle-btn" class="header-action-btn" onclick="openCompareModal()" title="So sánh sản phẩm">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"></path></svg>
+            <span id="compare-badge" class="action-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- Danh sách yêu thích -->
+          <button id="wishlist-toggle-btn" class="header-action-btn" onclick="openWishlistModal()" title="Danh sách yêu thích">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span id="wishlist-badge" class="action-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- Giỏ hàng -->
+          <button id="cart-toggle-btn" class="header-action-btn" title="Xem giỏ hàng">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span id="cart-badge" class="action-badge" style="display: none;">0</span>
+          </button>
+
+          <!-- Menu tài khoản thành viên VIP -->
           <div id="user-header-wrap"></div>
 
-          <a href="admin.html" class="cart-toggle-btn" title="Trang Quản Trị (Admin)">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Quản trị viên -->
+          <a href="admin.html" class="header-action-btn" title="Trang Quản Trị Hệ Thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
               <line x1="8" y1="21" x2="16" y2="21"></line>
               <line x1="12" y1="17" x2="12" y2="21"></line>
             </svg>
           </a>
-          <button id="cart-toggle-btn" class="cart-toggle-btn" title="Xem giỏ hàng">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="9" cy="21" r="1"></circle>
-              <circle cx="20" cy="21" r="1"></circle>
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            <span id="cart-badge" class="cart-badge">0</span>
-          </button>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ==================== HERO BANNER ==================== -->
-  <section class="hero-section">
+  <!-- ==================== HERO SLIDER VIP SHOWCASE ==================== -->
+  <section class="hero-slider-section">
     <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <span class="hero-badge">Ưu đãi mùa tựu trường 2026</span>
-          <h1 class="hero-title">Đột Phá Công Nghệ.<br>Nâng Tầm Trải Nghiệm.</h1>
-          <p class="hero-desc">Khám phá các sản phẩm công nghệ tiên phong với mức giá trợ giá cực hấp dẫn và chính sách bảo hành chính hãng 1 đổi 1.</p>
-          <div class="hero-features">
-            <div class="hero-feat-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-              <span>100% Chính hãng</span>
+      <div class="hero-slider-wrapper">
+        <!-- Slide 1: Apple Flagship 2026 -->
+        <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=1400&q=80');">
+          <div class="hero-slide-overlay"></div>
+          <div class="hero-slide-content">
+            <div class="hero-vip-badge">
+              <span>✦</span> Đặc Quyền Flagship 2026
             </div>
-            <div class="hero-feat-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-              <span>Giao siêu tốc 2h</span>
-            </div>
-            <div class="hero-feat-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-              <span>Đổi trả trong 30 ngày</span>
+            <h1 class="hero-title">
+              iPhone 16 Pro Max<br>
+              <span class="hero-title-gradient">Titan Sa Mạc Đỉnh Cao</span>
+            </h1>
+            <p class="hero-desc">
+              Sức mạnh tối thượng từ chip Apple A18 Pro 3nm, nút Camera Control thế hệ mới và khung viền Titan siêu nhẹ. Đẳng cấp công nghệ tương lai trong tầm tay bạn.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary btn-lg" onclick="openProductDetail(1)">Khám Phá Siêu Phẩm</button>
+              <button class="btn btn-secondary btn-lg" onclick="addToCart(1, 1)">Thêm Vào Giỏ Ngay</button>
             </div>
           </div>
+          <div class="hero-slide-img-col">
+            <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=80" alt="iPhone 16 Pro Max" class="hero-product-img">
+          </div>
         </div>
-        <div class="hero-card-promo">
-          <h3>Mã Giảm Giá Độc Quyền</h3>
-          <p>Nhập mã để nhận thêm 10% giảm giá cho đơn hàng đầu tiên</p>
-          <div class="coupon-code">TECHSALE10</div>
+
+        <!-- Slide 2: Gaming Beast ASUS ROG -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=1400&q=80');">
+          <div class="hero-slide-overlay"></div>
+          <div class="hero-slide-content">
+            <div class="hero-vip-badge">
+              <span>⚡</span> Quái Thú Đồ Họa & Gaming
+            </div>
+            <h1 class="hero-title">
+              ASUS ROG Zephyrus G16<br>
+              <span class="hero-title-gradient">OLED 240Hz RTX 4080</span>
+            </h1>
+            <p class="hero-desc">
+              Thiết kế nhôm nguyên khối CNC siêu mỏng chỉ 1.49cm với dải đèn Slash Lighting độc bản. Sức mạnh Intel Core Ultra 9 và đồ họa RTX 4080 cân mọi tựa game AAA.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary btn-lg" onclick="openProductDetail(6)">Xem Cấu Hình Khủng</button>
+              <button class="btn btn-secondary btn-lg" onclick="addToCart(6, 1)">Sở Hữu Ngay</button>
+            </div>
+          </div>
+          <div class="hero-slide-img-col">
+            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=800&q=80" alt="ROG Zephyrus G16" class="hero-product-img">
+          </div>
+        </div>
+
+        <!-- Slide 3: Hi-End Audio Marshall & B&O -->
+        <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=1400&q=80');">
+          <div class="hero-slide-overlay"></div>
+          <div class="hero-slide-content">
+            <div class="hero-vip-badge">
+              <span>👑</span> Âm Thanh Hoàng Gia Quý Tộc
+            </div>
+            <h1 class="hero-title">
+              Marshall & B&O Luxury<br>
+              <span class="hero-title-gradient">Chất Âm Hi-End Phòng Thu</span>
+            </h1>
+            <p class="hero-desc">
+              Đắm chìm trong không gian âm nhạc sống động với Marshall Stanmore III và B&O Beosound A1 2nd Gen. Hoàn thiện thủ công đỉnh cao từ Anh Quốc và Đan Mạch.
+            </p>
+            <div class="hero-cta-group">
+              <button class="btn btn-primary btn-lg" onclick="openProductDetail(10)">Trải Nghiệm Âm Thanh</button>
+              <button class="btn btn-secondary btn-lg" onclick="addToCart(10, 1)">Đặt Hàng Hỏa Tốc</button>
+            </div>
+          </div>
+          <div class="hero-slide-img-col">
+            <img src="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80" alt="Marshall Stanmore III" class="hero-product-img">
+          </div>
+        </div>
+
+        <!-- Điều hướng Slider -->
+        <div class="hero-slider-nav">
+          <button id="hero-slider-prev" class="hero-nav-arrow" title="Slide trước">&#10094;</button>
+          <div class="hero-slider-dots">
+            <span class="hero-slider-dot active"></span>
+            <span class="hero-slider-dot"></span>
+            <span class="hero-slider-dot"></span>
+          </div>
+          <button id="hero-slider-next" class="hero-nav-arrow" title="Slide kế">&#10095;</button>
+        </div>
+      </div>
+
+      <!-- Cam kết đặc quyền VIP Trust Bar -->
+      <div class="hero-trust-bar">
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <div class="trust-info">
+            <strong>100% Chính Hãng VIP</strong>
+            <span>Hóa đơn VAT & bảo hành toàn cầu</span>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          </div>
+          <div class="trust-info">
+            <strong>Giao Hỏa Tốc 1-2 Giờ</strong>
+            <span>Đóng gói bọc khí VIP chống sốc</span>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </div>
+          <div class="trust-info">
+            <strong>1 Đổi 1 Trong 30 Ngày</strong>
+            <span>Lỗi phần cứng đổi máy mới ngay</span>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          </div>
+          <div class="trust-info">
+            <strong>Đặc Quyền Thành Viên VIP</strong>
+            <span>Tích điểm 1% & quà sinh nhật</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="container">
-    <!-- Bộ lọc & Sắp xếp -->
-    <div class="controls-bar">
-      <div class="category-tabs">
-        <button class="category-btn active" data-category="all">Tất cả</button>
-        <button class="category-btn" data-category="phone">Điện thoại</button>
-        <button class="category-btn" data-category="laptop">Laptop</button>
-        <button class="category-btn" data-category="audio">Âm thanh</button>
-        <button class="category-btn" data-category="watch">Đồng hồ</button>
+  <!-- ==================== BRAND MARQUEE TICKER ==================== -->
+  <section class="brand-marquee-section">
+    <div class="brand-marquee-track">
+      <div class="marquee-brand-item">✦ Apple Authorised</div>
+      <div class="marquee-brand-item">✦ Samsung Elite</div>
+      <div class="marquee-brand-item">✦ ASUS ROG Republic</div>
+      <div class="marquee-brand-item">✦ Sony Hi-Res Audio</div>
+      <div class="marquee-brand-item">✦ Marshall Official</div>
+      <div class="marquee-brand-item">✦ Bang & Olufsen</div>
+      <div class="marquee-brand-item">✦ Razer Esports</div>
+      <div class="marquee-brand-item">✦ Garmin Pro Solar</div>
+      <div class="marquee-brand-item">✦ Dell XPS Premier</div>
+      <div class="marquee-brand-item">✦ Lenovo Legion Carbon</div>
+      <div class="marquee-brand-item">✦ Keychron Custom</div>
+      <div class="marquee-brand-item">✦ Xiaomi Leica Master</div>
+      <!-- Lặp lại tạo hiệu ứng vô tận -->
+      <div class="marquee-brand-item">✦ Apple Authorised</div>
+      <div class="marquee-brand-item">✦ Samsung Elite</div>
+      <div class="marquee-brand-item">✦ ASUS ROG Republic</div>
+      <div class="marquee-brand-item">✦ Sony Hi-Res Audio</div>
+      <div class="marquee-brand-item">✦ Marshall Official</div>
+      <div class="marquee-brand-item">✦ Bang & Olufsen</div>
+      <div class="marquee-brand-item">✦ Razer Esports</div>
+      <div class="marquee-brand-item">✦ Garmin Pro Solar</div>
+      <div class="marquee-brand-item">✦ Dell XPS Premier</div>
+    </div>
+  </section>
+
+  <!-- ==================== FLASH SALE VIP SECTION ==================== -->
+  <section class="container">
+    <div class="flash-sale-section">
+      <div class="flash-sale-header">
+        <div class="flash-sale-title-wrap">
+          <span class="fs-fire-badge">🔥</span>
+          <div>
+            <h2 class="flash-sale-title">FLASH SALE VIP - GIỜ VÀNG CÔNG NGHỆ</h2>
+            <p class="flash-sale-subtitle">Trợ giá sốc đến 20% cho thành viên VIP TechStore</p>
+          </div>
+        </div>
+
+        <div class="flash-sale-timer-wrap">
+          <span class="timer-label">Kết thúc sau:</span>
+          <div id="fs-hours" class="timer-digit-box">00</div>
+          <span class="timer-colon">:</span>
+          <div id="fs-mins" class="timer-digit-box">00</div>
+          <span class="timer-colon">:</span>
+          <div id="fs-secs" class="timer-digit-box">00</div>
+        </div>
       </div>
-      <div class="sort-wrapper">
-        <label for="sort-select" class="sort-label">Sắp xếp:</label>
-        <select id="sort-select" class="sort-select">
-          <option value="default">Mặc định</option>
-          <option value="price-asc">Giá: Thấp đến Cao</option>
-          <option value="price-desc">Giá: Cao đến Thấp</option>
-          <option value="rating-desc">Đánh giá cao nhất</option>
-        </select>
+
+      <div id="flash-sale-grid" class="flash-sale-grid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MAIN CATALOG ==================== -->
+  <main class="container">
+    <div class="catalog-section-header">
+      <div class="catalog-title-row">
+        <h2 class="catalog-title">Kho Siêu Phẩm Công Nghệ</h2>
+        <span id="catalog-products-count" class="catalog-count">(20 thiết bị)</span>
+      </div>
+
+      <!-- Tab danh mục lớn -->
+      <div class="category-tabs">
+        <button class="category-btn active" data-category="all">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Tất Cả
+        </button>
+        <button class="category-btn" data-category="phone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          Điện Thoại
+        </button>
+        <button class="category-btn" data-category="laptop">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>
+          Laptop & PC
+        </button>
+        <button class="category-btn" data-category="audio">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+          Âm Thanh Hi-End
+        </button>
+        <button class="category-btn" data-category="watch">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>
+          Đồng Hồ Thông Minh
+        </button>
+        <button class="category-btn" data-category="gaming">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          Gaming & Gear VIP
+        </button>
+      </div>
+
+      <!-- Lọc theo thương hiệu nổi tiếng -->
+      <div id="brand-filter-container" class="brand-filter-row"></div>
+
+      <!-- Toolbar Lọc giá & Sắp xếp -->
+      <div class="filter-toolbar">
+        <div class="price-filters-group">
+          <span>Khoảng giá:</span>
+          <button class="price-filter-pill active" data-price="all">Tất cả</button>
+          <button class="price-filter-pill" data-price="under-10m">Dưới 10 triệu</button>
+          <button class="price-filter-pill" data-price="10m-25m">10 - 25 triệu</button>
+          <button class="price-filter-pill" data-price="25m-50m">25 - 50 triệu</button>
+          <button class="price-filter-pill" data-price="above-50m">Trên 50 triệu</button>
+        </div>
+
+        <div class="sort-wrapper">
+          <label for="sort-select" class="sort-label">Sắp xếp theo:</label>
+          <select id="sort-select" class="sort-select">
+            <option value="default">Mặc định (Khuyên dùng)</option>
+            <option value="price-asc">Giá: Thấp đến Cao</option>
+            <option value="price-desc">Giá: Cao đến Thấp (Flagship)</option>
+            <option value="rating-desc">Đánh giá cao nhất (5 Sao)</option>
+            <option value="discount-desc">Giảm giá nhiều nhất</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -117,11 +357,11 @@
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         <line x1="8" y1="11" x2="14" y2="11"></line>
       </svg>
-      <h3>Không tìm thấy sản phẩm phù hợp</h3>
-      <p>Hãy thử tìm kiếm với từ khóa khác hoặc chuyển sang danh mục khác.</p>
+      <h3>Không tìm thấy sản phẩm nào phù hợp</h3>
+      <p>Hãy thử gõ từ khóa khác hoặc chuyển sang danh mục và khoảng giá khác.</p>
     </div>
 
-    <!-- Grid danh sách sản phẩm -->
+    <!-- Grid danh sách sản phẩm VIP PRO -->
     <div id="products-grid" class="products-grid"></div>
   </main>
 
@@ -129,8 +369,18 @@
   <div id="cart-overlay" class="cart-overlay"></div>
   <aside id="cart-drawer" class="cart-drawer">
     <div class="cart-header">
-      <h3>Giỏ Hàng Của Bạn</h3>
+      <h3>Giỏ Hàng VIP</h3>
       <button id="cart-close-btn" class="cart-close-btn">&times;</button>
+    </div>
+
+    <!-- Banner tiến trình Freeship -->
+    <div class="cart-freeship-banner">
+      <div id="freeship-text-desc" class="freeship-text">
+        Đơn hàng từ <strong>5.000.000 đ</strong> được <strong>Freeship Hỏa Tốc</strong>!
+      </div>
+      <div class="freeship-progress-track">
+        <div id="freeship-progress-bar" class="freeship-progress-bar" style="width: 0%;"></div>
+      </div>
     </div>
     
     <div class="cart-body">
@@ -142,26 +392,54 @@
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
         </svg>
         <p>Giỏ hàng của bạn chưa có sản phẩm nào</p>
-        <button class="btn btn-secondary" onclick="closeCart()">Khám phá sản phẩm ngay</button>
+        <button class="btn btn-secondary" onclick="closeCart()" style="margin-top: 14px;">Khám phá sản phẩm ngay</button>
       </div>
 
       <!-- Danh sách món hàng -->
       <div id="cart-items" class="cart-items"></div>
     </div>
 
-    <!-- Footer tính tổng & Thanh toán -->
+    <!-- Footer tính tổng & Mã Voucher -->
     <div id="cart-footer" class="cart-footer" style="display: none;">
-      <div class="cart-summary-row">
-        <span>Tổng cộng:</span>
+      <!-- Hộp nhập mã Voucher -->
+      <div class="coupon-section">
+        <div id="active-coupon-box" style="display: none;"></div>
+        <div class="coupon-input-group">
+          <input type="text" id="coupon-code-input" class="coupon-input" placeholder="Nhập mã: TECHSALE10, VIPPRO...">
+          <button id="btn-apply-coupon" class="btn btn-secondary btn-sm">Áp Dụng</button>
+        </div>
+        <div class="quick-coupons-row">
+          <span class="quick-coupon-pill" onclick="applyAndNotify('TECHSALE10')">🎟️ TECHSALE10 (-10%)</span>
+          <span class="quick-coupon-pill" onclick="applyAndNotify('VIPPRO')">💎 VIPPRO (-1Tr)</span>
+          <span class="quick-coupon-pill" onclick="applyAndNotify('FREESHIP')">🚚 FREESHIP</span>
+        </div>
+      </div>
+
+      <!-- Chi tiết tạm tính -->
+      <div class="cart-breakdown-row">
+        <span>Tạm tính:</span>
+        <span id="cart-subtotal-amount">0 đ</span>
+      </div>
+      <div id="cart-discount-row" class="cart-breakdown-row" style="display: none; color: var(--success); font-weight: 700;">
+        <span>Khuyến mãi Voucher:</span>
+        <span id="cart-discount-amount">0 đ</span>
+      </div>
+      <div class="cart-breakdown-row">
+        <span>Phí giao hàng:</span>
+        <span id="cart-shipping-amount">Miễn phí</span>
+      </div>
+      <div class="cart-total-row">
+        <span>Tổng thanh toán:</span>
         <span id="cart-total-amount" class="cart-total-price">0 đ</span>
       </div>
+
       <button class="btn btn-primary btn-block btn-lg" onclick="openCheckout()">
-        Tiến hành đặt hàng
+        Tiến Hành Đặt Hàng VIP
       </button>
     </div>
   </aside>
 
-  <!-- ==================== MODAL XEM CHI TIẾT SẢN PHẨM ==================== -->
+  <!-- ==================== MODAL XEM CHI TIẾT SẢN PHẨM VIP ==================== -->
   <div id="product-modal" class="modal-backdrop">
     <div class="modal-container">
       <button class="modal-close-btn" onclick="closeModal('product-modal')">&times;</button>
@@ -169,16 +447,38 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL THANH TOÁN (CHECKOUT) ==================== -->
+  <!-- ==================== MODAL BẢNG SO SÁNH SẢN PHẨM ==================== -->
+  <div id="compare-modal" class="modal-backdrop">
+    <div class="modal-container" style="max-width: 960px;">
+      <button class="modal-close-btn" onclick="closeModal('compare-modal')">&times;</button>
+      <div class="checkout-modal-header">
+        <h3>Bảng So Sánh Thông Số Đối Đầu</h3>
+      </div>
+      <div id="compare-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL DANH SÁCH YÊU THÍCH (WISHLIST) ==================== -->
+  <div id="wishlist-modal" class="modal-backdrop">
+    <div class="modal-container" style="max-width: 800px;">
+      <button class="modal-close-btn" onclick="closeModal('wishlist-modal')">&times;</button>
+      <div class="checkout-modal-header">
+        <h3>Danh Sách Thiết Bị Yêu Thích Của Bạn</h3>
+      </div>
+      <div id="wishlist-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL THANH TOÁN (CHECKOUT) & VIETQR ==================== -->
   <div id="checkout-modal" class="modal-backdrop">
-    <div class="modal-container">
+    <div class="modal-container" style="max-width: 640px;">
       <button class="modal-close-btn" onclick="closeModal('checkout-modal')">&times;</button>
       <div class="checkout-modal-header">
-        <h3>Thông Tin Đặt Hàng</h3>
+        <h3>Xác Nhận Đặt Hàng & Thanh Toán VIP</h3>
       </div>
       <form id="checkout-form" class="checkout-form">
         <div class="form-group">
-          <label for="customer-name">Họ và tên *</label>
+          <label for="customer-name">Họ và tên khách hàng *</label>
           <input type="text" id="customer-name" class="form-control" placeholder="Ví dụ: Nguyễn Văn A" required>
         </div>
         <div class="form-group">
@@ -186,30 +486,61 @@
           <input type="tel" id="customer-phone" class="form-control" placeholder="Ví dụ: 0987654321" required>
         </div>
         <div class="form-group">
-          <label for="customer-address">Địa chỉ nhận hàng *</label>
-          <textarea id="customer-address" class="form-control" rows="2" placeholder="Số nhà, tên đường, phường/xã, quận/huyện..." required></textarea>
+          <label for="customer-address">Địa chỉ nhận hàng chi tiết *</label>
+          <textarea id="customer-address" class="form-control" rows="2" placeholder="Số nhà, tên đường, tòa nhà, phường/xã, quận/huyện..." required></textarea>
         </div>
         <div class="form-group">
+          <label for="customer-note">Ghi chú giao hàng (nếu có)</label>
+          <input type="text" id="customer-note" class="form-control" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi tới...">
+        </div>
+
+        <div class="form-group">
           <label>Hình thức thanh toán</label>
-          <div class="payment-options">
-            <label class="payment-label">
+          <div class="payment-options-grid">
+            <label class="payment-label-card">
               <input type="radio" name="payment" value="COD" checked>
-              <span>Thanh toán khi nhận hàng (COD)</span>
+              <span class="payment-label-content">💵 Thanh toán khi nhận hàng (COD)</span>
             </label>
-            <label class="payment-label">
+            <label class="payment-label-card">
               <input type="radio" name="payment" value="BANK">
-              <span>Chuyển khoản ngân hàng (QR Code / Mobile Banking)</span>
+              <span class="payment-label-content">🏦 Quét mã VietQR Napas 24/7</span>
+            </label>
+            <label class="payment-label-card">
+              <input type="radio" name="payment" value="CARD">
+              <span class="payment-label-content">💳 Thẻ Visa / Master / JCB</span>
+            </label>
+            <label class="payment-label-card">
+              <input type="radio" name="payment" value="MOMO">
+              <span class="payment-label-content">📱 Ví MoMo / VNPay</span>
             </label>
           </div>
         </div>
 
-        <div class="checkout-total-box">
-          <span>Tổng số tiền cần thanh toán:</span>
-          <strong id="checkout-summary-total">0 đ</strong>
+        <!-- Hộp hiển thị mã VietQR động -->
+        <div id="vietqr-transfer-box" style="display: none;"></div>
+
+        <!-- Tóm tắt chi phí thanh toán -->
+        <div class="checkout-summary-box">
+          <div class="cart-breakdown-row">
+            <span>Tạm tính tiền hàng:</span>
+            <strong id="checkout-summary-subtotal">0 đ</strong>
+          </div>
+          <div class="cart-breakdown-row">
+            <span>Giảm giá Voucher:</span>
+            <strong id="checkout-summary-discount" class="text-success">0 đ</strong>
+          </div>
+          <div class="cart-breakdown-row">
+            <span>Phí vận chuyển hỏa tốc:</span>
+            <strong id="checkout-summary-shipping">Miễn phí</strong>
+          </div>
+          <div class="cart-total-row" style="margin-bottom: 0;">
+            <span>Tổng thanh toán:</span>
+            <strong id="checkout-summary-total" class="cart-total-price">0 đ</strong>
+          </div>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block btn-lg">
-          Xác nhận đặt hàng ngay
+          Hoàn Tất Đặt Hàng Ngay
         </button>
       </form>
     </div>
@@ -217,88 +548,84 @@
 
   <!-- ==================== MODAL ĐẶT HÀNG THÀNH CÔNG ==================== -->
   <div id="success-modal" class="modal-backdrop">
-    <div class="modal-container">
+    <div class="modal-container" style="max-width: 500px;">
       <div class="success-content">
-        <div class="success-icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <div class="success-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
         <h2 class="success-title">Đặt Hàng Thành Công!</h2>
-        <p class="success-desc">Cảm ơn bạn đã tin tưởng TechStore. Chúng tôi sẽ liên hệ sớm nhất để xác nhận đơn hàng.</p>
+        <p class="success-desc">Cảm ơn bạn đã lựa chọn TechStore VIP PRO. Đơn hàng của bạn đang được ưu tiên điều phối đóng gói.</p>
         
-        <div id="success-order-info" class="success-info-box"></div>
+        <div id="success-order-info"></div>
 
         <button class="btn btn-primary btn-block" onclick="closeModal('success-modal')">
-          Tiếp tục mua sắm
+          Tiếp Tục Trải Nghiệm Mua Sắm
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ==================== MODAL ĐĂNG NHẬP / ĐĂNG KÝ TÀI KHOẢN ==================== -->
+  <!-- ==================== MODAL ĐĂNG NHẬP / ĐĂNG KÝ ==================== -->
   <div id="user-auth-modal" class="modal-backdrop">
     <div class="modal-container" style="max-width: 460px;">
       <button class="modal-close-btn" onclick="closeModal('user-auth-modal')">&times;</button>
       
-      <div style="padding: 28px 28px 20px;">
-        <!-- Tabs Chuyển đổi -->
+      <div style="padding: 28px 28px 24px;">
         <div class="auth-tabs-nav">
-          <div id="tab-btn-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">Đăng Nhập</div>
-          <div id="tab-btn-register" class="auth-tab-btn" onclick="switchAuthTab('register')">Đăng Ký</div>
+          <div id="tab-btn-login" class="auth-tab-btn active" onclick="switchAuthTab('login')">Đăng Nhập VIP</div>
+          <div id="tab-btn-register" class="auth-tab-btn" onclick="switchAuthTab('register')">Đăng Ký Thành Viên</div>
         </div>
 
-        <!-- Tab 1: Form Đăng Nhập -->
+        <!-- Form Đăng Nhập -->
         <div id="pane-login" class="auth-tab-pane active">
           <div id="user-login-error" class="login-alert" style="margin-bottom: 16px;"></div>
           <form id="user-login-form" autocomplete="off">
             <div class="form-group">
-              <label for="user-login-acc">Tên đăng nhập</label>
-              <input type="text" id="user-login-acc" class="form-control" placeholder="Nhập tên đăng nhập" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+              <label for="user-login-acc">Email hoặc Số điện thoại *</label>
+              <input type="text" id="user-login-acc" class="form-control" placeholder="Nhập email hoặc SĐT" required>
             </div>
             <div class="form-group">
-              <label for="user-login-pass">Mật khẩu</label>
-              <input type="password" id="user-login-pass" class="form-control" placeholder="Nhập mật khẩu" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" required>
+              <label for="user-login-pass">Mật khẩu *</label>
+              <input type="password" id="user-login-pass" class="form-control" placeholder="Nhập mật khẩu" required>
             </div>
-            <div class="login-options">
-              <label class="remember-label">
-                <input type="checkbox" id="user-remember-me">
-                <span>Ghi nhớ đăng nhập</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem;">
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                <input type="checkbox" id="user-remember-me" checked>
+                <span>Ghi nhớ phiên</span>
               </label>
+              <a href="#!" onclick="fillUserDemo()" class="text-primary" style="font-weight: 600;">Điền tài khoản mẫu</a>
             </div>
-            <button type="submit" class="btn btn-primary btn-block btn-lg">Đăng Nhập</button>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Đăng Nhập Ngay</button>
           </form>
         </div>
 
-        <!-- Tab 2: Form Đăng Ký -->
+        <!-- Form Đăng Ký -->
         <div id="pane-register" class="auth-tab-pane">
           <div id="user-reg-error" class="login-alert" style="margin-bottom: 16px;"></div>
           <form id="user-register-form" autocomplete="off">
-            <!-- Bẫy autofill -->
-            <input type="text" style="display:none;" name="fake-reg-modal-acc" tabindex="-1">
-            <input type="password" style="display:none;" name="fake-reg-modal-pwd" tabindex="-1">
-
             <div class="form-group">
               <label for="user-reg-name">Họ và tên *</label>
-              <input type="text" id="user-reg-name" class="form-control" placeholder="Nhập họ và tên" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+              <input type="text" id="user-reg-name" class="form-control" placeholder="Ví dụ: Hoàng Minh Tuấn" required>
             </div>
             <div class="form-group">
               <label for="user-reg-email">Địa chỉ Email *</label>
-              <input type="email" id="user-reg-email" class="form-control" placeholder="Nhập địa chỉ email" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+              <input type="email" id="user-reg-email" class="form-control" placeholder="vidu@gmail.com" required>
             </div>
             <div class="form-group">
               <label for="user-reg-phone">Số điện thoại *</label>
-              <input type="tel" id="user-reg-phone" class="form-control" placeholder="Nhập số điện thoại" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required>
+              <input type="tel" id="user-reg-phone" class="form-control" placeholder="0912345678" required>
             </div>
             <div class="form-group">
-              <label for="user-reg-pass">Mật khẩu (tối thiểu 6 ký tự) *</label>
-              <input type="password" id="user-reg-pass" class="form-control" placeholder="Nhập mật khẩu" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" minlength="6" required>
+              <label for="user-reg-pass">Mật khẩu *</label>
+              <input type="password" id="user-reg-pass" class="form-control" placeholder="Tối thiểu 6 ký tự" minlength="6" required>
             </div>
             <div class="form-group">
               <label for="user-reg-confirm">Xác nhận mật khẩu *</label>
-              <input type="password" id="user-reg-confirm" class="form-control" placeholder="Nhập lại mật khẩu" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" minlength="6" required>
+              <input type="password" id="user-reg-confirm" class="form-control" placeholder="Nhập lại mật khẩu" minlength="6" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block btn-lg">Tạo Tài Khoản</button>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Tạo Tài Khoản & Nhận Điểm VIP</button>
           </form>
         </div>
       </div>
@@ -307,10 +634,10 @@
 
   <!-- ==================== MODAL LỊCH SỬ ĐƠN HÀNG ==================== -->
   <div id="order-history-modal" class="modal-backdrop">
-    <div class="modal-container" style="max-width: 600px;">
+    <div class="modal-container" style="max-width: 640px;">
       <button class="modal-close-btn" onclick="closeModal('order-history-modal')">&times;</button>
       <div class="checkout-modal-header">
-        <h3>Lịch Sử Đơn Hàng Của Tôi</h3>
+        <h3>Lịch Sử Đơn Hàng Của Bạn</h3>
       </div>
       <div style="padding: 24px;">
         <div id="user-orders-list" class="orders-list-wrap"></div>
@@ -318,53 +645,129 @@
     </div>
   </div>
 
-  <!-- ==================== MODAL THÔNG TIN TÀI KHOẢN ==================== -->
+  <!-- ==================== MODAL THÔNG TIN TÀI KHOẢN & VIP ==================== -->
   <div id="profile-modal" class="modal-backdrop">
-    <div class="modal-container" style="max-width: 480px;">
+    <div class="modal-container" style="max-width: 500px;">
       <button class="modal-close-btn" onclick="closeModal('profile-modal')">&times;</button>
       <div class="checkout-modal-header">
-        <h3>Thông Tin Cá Nhân</h3>
+        <h3>Hồ Sơ Thành Viên VIP</h3>
       </div>
       <div style="padding: 24px;" id="profile-info-body"></div>
     </div>
   </div>
 
-  <!-- ==================== FOOTER ==================== -->
+  <!-- ==================== TRỢ LÝ ẢO AI TECHSTORE (SMART CHATBOT WIDGET) ==================== -->
+  <!-- Nút bấm nổi FAB -->
+  <div id="ai-chat-btn" class="ai-chat-fab" onclick="toggleAIChat()">
+    <span class="ai-online-dot"></span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span>Trợ Lý AI VIP</span>
+  </div>
+
+  <!-- Hộp thoại chat drawer -->
+  <div id="ai-chat-drawer" class="ai-chat-drawer">
+    <div class="ai-chat-header">
+      <div class="ai-chat-header-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        <div>
+          <strong>AI TechStore Advisor</strong>
+          <small>● Sẵn sàng tư vấn 24/7</small>
+        </div>
+      </div>
+      <button onclick="toggleAIChat()" style="color: #fff; font-size: 1.3rem;">&times;</button>
+    </div>
+
+    <div id="ai-chat-messages" class="ai-chat-body">
+      <div class="ai-msg ai-msg-bot">
+        Chào bạn! Mình là Trợ lý AI của TechStore VIP PRO 🌟 Bạn đang cần tìm thiết bị công nghệ nào hôm nay? Hãy chọn câu hỏi nhanh bên dưới hoặc nhắn tin cho mình nhé!
+      </div>
+    </div>
+
+    <!-- Gợi ý câu hỏi nhanh -->
+    <div style="padding: 8px 12px; background: var(--bg-surface); border-top: 1px solid var(--border-color); display: flex; gap: 6px; overflow-x: auto;">
+      <span class="quick-coupon-pill" onclick="document.getElementById('ai-chat-input').value='Tư vấn iPhone 16 Pro Max'; handleAIChatSubmit(event);">📱 iPhone 16</span>
+      <span class="quick-coupon-pill" onclick="document.getElementById('ai-chat-input').value='Tư vấn laptop gaming mạnh nhất'; handleAIChatSubmit(event);">💻 Laptop Gaming</span>
+      <span class="quick-coupon-pill" onclick="document.getElementById('ai-chat-input').value='Loa Marshall và B&O'; handleAIChatSubmit(event);">🎧 Âm thanh Hi-End</span>
+      <span class="quick-coupon-pill" onclick="document.getElementById('ai-chat-input').value='Mã giảm giá hôm nay'; handleAIChatSubmit(event);">🎁 Mã giảm giá</span>
+    </div>
+
+    <div class="ai-chat-footer">
+      <form class="ai-chat-input-form" onsubmit="handleAIChatSubmit(event)">
+        <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Hỏi AI bất kỳ điều gì về sản phẩm..." autocomplete="off">
+        <button type="submit" class="btn btn-primary btn-sm" style="border-radius: var(--radius-full); padding: 8px 14px;">
+          Gửi
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER VIP ==================== -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
-          <div class="brand-logo" style="margin-bottom: 12px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <div class="brand-logo" style="margin-bottom: 14px; color: #fff;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
               <polyline points="2 17 12 22 22 17"></polyline>
               <polyline points="2 12 12 17 22 12"></polyline>
             </svg>
             Tech<span>Store</span>
+            <span class="vip-logo-badge">VIP PRO</span>
           </div>
-          <p>Hệ thống bán lẻ các sản phẩm công nghệ thông minh chính hãng. Luôn cam kết chất lượng, bảo hành uy tín và hỗ trợ khách hàng tận tâm.</p>
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            Hệ thống phân phối ủy quyền thiết bị công nghệ Flagship cao cấp hàng đầu Việt Nam. Tận tâm, bảo hành 24 tháng VIP 1 đổi 1 tại nhà, giao hàng hỏa tốc trong 1 giờ.
+          </p>
+          <div class="payment-badges-row">
+            <span class="payment-pill">SSL 256-Bit</span>
+            <span class="payment-pill">Đã Đăng Ký Bộ Công Thương</span>
+          </div>
         </div>
+
         <div class="footer-col">
-          <h4>Về chúng tôi</h4>
+          <h4>Danh Mục Sản Phẩm</h4>
           <ul class="footer-links">
-            <li><a href="#!">Giới thiệu TechStore</a></li>
-            <li><a href="#!">Hệ thống cửa hàng</a></li>
-            <li><a href="#!">Chính sách bảo hành</a></li>
-            <li><a href="#!">Tuyển dụng</a></li>
+            <li><a href="#!" onclick="currentCategory='phone'; renderProducts();">Điện thoại Flagship</a></li>
+            <li><a href="#!" onclick="currentCategory='laptop'; renderProducts();">Laptop & Workstation</a></li>
+            <li><a href="#!" onclick="currentCategory='audio'; renderProducts();">Âm thanh Hi-End</a></li>
+            <li><a href="#!" onclick="currentCategory='watch'; renderProducts();">Đồng hồ thông minh</a></li>
+            <li><a href="#!" onclick="currentCategory='gaming'; renderProducts();">Gaming Gear & Kính VR</a></li>
           </ul>
         </div>
+
         <div class="footer-col">
-          <h4>Hỗ trợ khách hàng</h4>
+          <h4>Chính Sách & Hỗ Trợ VIP</h4>
           <ul class="footer-links">
-            <li><a href="#!">Hotline: 1900 xxxx (8h - 22h)</a></li>
-            <li><a href="#!">Email: hotro@techstore.vn</a></li>
-            <li><a href="#!">Hướng dẫn mua hàng</a></li>
-            <li><a href="admin.html">Trang Quản Trị Viên (Admin)</a></li>
+            <li><a href="#!">Chính sách bảo hành VIP 1 đổi 1</a></li>
+            <li><a href="#!">Miễn phí giao hàng hỏa tốc 1H</a></li>
+            <li><a href="#!">Trả góp 0% lãi suất duyệt trong 5 phút</a></li>
+            <li><a href="#!">Thu cũ đổi mới trợ giá đến 3 triệu</a></li>
+            <li><a href="admin.html">Trang Quản Trị Hệ Thống (Admin)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Showroom & Liên Hệ</h4>
+          <ul class="footer-links">
+            <li><strong>Showroom Hà Nội:</strong> 88 Phố Huế, Q. Hoàn Kiếm</li>
+            <li><strong>Showroom TP.HCM:</strong> 128 Trần Hưng Đạo, Quận 1</li>
+            <li><strong>Hotline VIP:</strong> 1800 6868 (Miễn phí 24/7)</li>
+            <li><strong>Email:</strong> vip@techstore.vn</li>
           </ul>
         </div>
       </div>
+
       <div class="footer-bottom">
-        &copy; 2026 TechStore. Dự án Frontend Web Bán Hàng tối ưu cho Visual Studio Code.
+        <div>
+          &copy; 2026 TechStore VIP PRO - Kiệt tác Web Bán Hàng Điện Tử Cao Cấp. All Rights Reserved.
+        </div>
+        <div class="payment-badges-row">
+          <span class="payment-pill">VietQR Napas</span>
+          <span class="payment-pill">Visa / MasterCard</span>
+          <span class="payment-pill">Apple Pay</span>
+          <span class="payment-pill">MoMo</span>
+          <span class="payment-pill">VNPay</span>
+        </div>
       </div>
     </div>
   </footer>

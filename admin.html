@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStore - Trang Quản Trị Hệ Thống (Admin)</title>
+  <title>TechStore VIP PRO - Trang Quản Trị Hệ Thống (Admin Dashboard)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/admin.css">
   <script src="js/auth.js"></script>
@@ -24,16 +27,16 @@
             </svg>
             Tech<span>Store</span>
           </a>
-          <span class="admin-badge">Admin Dashboard</span>
+          <span class="admin-badge">Admin VIP Dashboard</span>
         </div>
 
         <div class="admin-nav-actions">
-          <button class="btn btn-secondary" onclick="triggerResetDefaultData()" title="Khôi phục về 8 sản phẩm mẫu ban đầu">
+          <button class="btn btn-secondary" onclick="triggerResetDefaultData()" title="Khôi phục về danh mục 20 sản phẩm VIP PRO mẫu ban đầu">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M2.5 2v6h6M21.5 22v-6h-6"></path>
               <path d="M22 11.5A10 10 0 0 0 3.2 7.2L2.5 8M2 12.5a10 10 0 0 0 18.8 4.2l.7-.7"></path>
             </svg>
-            Khôi phục mẫu
+            Khôi phục mẫu VIP
           </button>
           
           <a href="index.html" class="btn btn-primary">
@@ -62,7 +65,7 @@
     <div class="admin-stats-grid">
       <div class="stat-card">
         <div class="stat-icon blue">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
             <line x1="8" y1="21" x2="16" y2="21"></line>
             <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -76,51 +79,60 @@
 
       <div class="stat-card">
         <div class="stat-icon green">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="8" y1="6" x2="21" y2="6"></line>
-            <line x1="8" y1="12" x2="21" y2="12"></line>
-            <line x1="8" y1="18" x2="21" y2="18"></line>
-            <line x1="3" y1="6" x2="3.01" y2="6"></line>
-            <line x1="3" y1="12" x2="3.01" y2="12"></line>
-            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
           </svg>
         </div>
         <div class="stat-info">
-          <span id="stat-total-categories" class="stat-value">0</span>
-          <span class="stat-label">Danh mục hoạt động</span>
+          <span id="stat-total-orders" class="stat-value">0</span>
+          <span class="stat-label">Tổng đơn đặt hàng</span>
         </div>
       </div>
 
       <div class="stat-card">
         <div class="stat-icon orange">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-        </div>
-        <div class="stat-info">
-          <span id="stat-total-badges" class="stat-value">0</span>
-          <span class="stat-label">Có huy hiệu / Sale</span>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon purple">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="1" x2="12" y2="23"></line>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
         </div>
         <div class="stat-info">
+          <span id="stat-total-revenue" class="stat-value">0 đ</span>
+          <span class="stat-label">Tổng doanh thu</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="stat-info">
           <span id="stat-avg-price" class="stat-value">0 đ</span>
-          <span class="stat-label">Giá trung bình</span>
+          <span class="stat-label">Giá trung bình SP</span>
         </div>
       </div>
     </div>
 
-    <!-- ==================== MAIN CRUD SECTION ==================== -->
-    <div class="admin-card">
+    <!-- Tabs chuyển đổi view Admin -->
+    <div class="admin-view-tabs">
+      <button id="view-tab-products" class="admin-view-tab-btn active" onclick="switchAdminView('products')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Quản Lý Sản Phẩm (CRUD)
+      </button>
+      <button id="view-tab-orders" class="admin-view-tab-btn" onclick="switchAdminView('orders')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        Quản Lý Đơn Hàng Khách Hàng
+      </button>
+    </div>
+
+    <!-- ==================== VIEW 1: CRUD SẢN PHẨM ==================== -->
+    <div id="admin-view-products" class="admin-card" style="margin-top: 16px;">
       <div class="admin-card-header">
-        <h2 class="admin-card-title">Quản Lý Danh Sách Sản Phẩm</h2>
+        <h2 class="admin-card-title">Danh Sách Thiết Bị Công Nghệ</h2>
         <div class="admin-toolbar">
           <!-- Ô tìm kiếm -->
           <div class="admin-search-box">
@@ -128,16 +140,17 @@
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="admin-search-input" placeholder="Tìm kiếm theo tên hoặc danh mục...">
+            <input type="text" id="admin-search-input" placeholder="Tìm kiếm theo tên, danh mục, hãng...">
           </div>
 
           <!-- Lọc danh mục -->
           <select id="admin-filter-category" class="admin-filter-select">
             <option value="all">Tất cả danh mục</option>
             <option value="phone">Điện thoại</option>
-            <option value="laptop">Laptop</option>
-            <option value="audio">Âm thanh</option>
+            <option value="laptop">Laptop & PC</option>
+            <option value="audio">Âm thanh Hi-End</option>
             <option value="watch">Đồng hồ</option>
+            <option value="gaming">Gaming & Gear</option>
             <option value="other">Khác</option>
           </select>
 
@@ -159,6 +172,7 @@
             <tr>
               <th style="width: 70px;">Hình ảnh</th>
               <th>Tên sản phẩm</th>
+              <th>Hãng</th>
               <th>Danh mục</th>
               <th>Giá bán</th>
               <th>Huy hiệu</th>
@@ -179,6 +193,43 @@
         </div>
       </div>
     </div>
+
+    <!-- ==================== VIEW 2: QUẢN LÝ ĐƠN HÀNG ==================== -->
+    <div id="admin-view-orders" class="admin-card" style="margin-top: 16px; display: none;">
+      <div class="admin-card-header">
+        <h2 class="admin-card-title">Danh Sách Đơn Hàng Đã Đặt</h2>
+        <button class="btn btn-secondary btn-sm" onclick="loadAndRenderAdminOrders()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          Tải lại đơn hàng
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Mã Đơn</th>
+              <th>Thời gian</th>
+              <th>Khách hàng</th>
+              <th>Số điện thoại & Địa chỉ</th>
+              <th>Sản phẩm đặt</th>
+              <th>Tổng tiền</th>
+              <th>Phương thức</th>
+              <th>Trạng thái xử lý</th>
+            </tr>
+          </thead>
+          <tbody id="admin-orders-tbody"></tbody>
+        </table>
+
+        <div id="admin-orders-empty" class="table-empty-state" style="display: none;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 14 14"></polyline>
+          </svg>
+          <p>Chưa có đơn hàng nào được đặt trên cửa hàng.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ==================== MODAL THÊM / SỬA SẢN PHẨM ==================== -->
@@ -195,7 +246,13 @@
           <!-- Tên sản phẩm -->
           <div class="form-group full-col">
             <label for="prod-name">Tên sản phẩm *</label>
-            <input type="text" id="prod-name" class="form-control" placeholder="Ví dụ: iPhone 16 Pro 256GB" required>
+            <input type="text" id="prod-name" class="form-control" placeholder="Ví dụ: iPhone 16 Pro Max 256GB" required>
+          </div>
+
+          <!-- Thương hiệu -->
+          <div class="form-group">
+            <label for="prod-brand">Thương hiệu / Hãng sản xuất</label>
+            <input type="text" id="prod-brand" class="form-control" placeholder="Ví dụ: Apple, Samsung, ASUS, Sony..." required>
           </div>
 
           <!-- Danh mục -->
@@ -203,9 +260,10 @@
             <label for="prod-category">Danh mục *</label>
             <select id="prod-category" class="form-control" required>
               <option value="phone">Điện thoại</option>
-              <option value="laptop">Laptop</option>
-              <option value="audio">Âm thanh</option>
-              <option value="watch">Đồng hồ</option>
+              <option value="laptop">Laptop & PC</option>
+              <option value="audio">Âm thanh Hi-End</option>
+              <option value="watch">Đồng hồ thông minh</option>
+              <option value="gaming">Gaming & Gear VIP</option>
               <option value="other">Khác</option>
             </select>
           </div>
@@ -213,19 +271,19 @@
           <!-- Giá bán -->
           <div class="form-group">
             <label for="prod-price">Giá bán (VNĐ) *</label>
-            <input type="number" id="prod-price" class="form-control" placeholder="Ví dụ: 25000000" min="1000" required>
+            <input type="number" id="prod-price" class="form-control" placeholder="Ví dụ: 34990000" min="1000" required>
           </div>
 
           <!-- Giá niêm yết cũ -->
           <div class="form-group">
             <label for="prod-old-price">Giá niêm yết cũ (nếu có)</label>
-            <input type="number" id="prod-old-price" class="form-control" placeholder="Ví dụ: 28000000" min="1000">
+            <input type="number" id="prod-old-price" class="form-control" placeholder="Ví dụ: 38990000" min="1000">
           </div>
 
           <!-- Huy hiệu -->
           <div class="form-group">
             <label for="prod-badge">Huy hiệu tag</label>
-            <input type="text" id="prod-badge" class="form-control" placeholder="Ví dụ: Bán chạy, Hot Deal, -15%...">
+            <input type="text" id="prod-badge" class="form-control" placeholder="Ví dụ: Siêu Phẩm 2026, VIP Pro, Hot Deal, -15%...">
           </div>
 
           <!-- Đánh giá sao -->
@@ -238,6 +296,12 @@
           <div class="form-group">
             <label for="prod-reviews">Số lượt đánh giá</label>
             <input type="number" id="prod-reviews" class="form-control" min="0" value="1">
+          </div>
+
+          <!-- Quà tặng kèm -->
+          <div class="form-group">
+            <label for="prod-gift">Quà tặng kèm VIP</label>
+            <input type="text" id="prod-gift" class="form-control" placeholder="Ví dụ: Tặng Củ Sạc Nhanh GaN 65W + Bao Da">
           </div>
 
           <!-- Link ảnh -->
@@ -258,7 +322,7 @@
 
         <div class="modal-footer-actions">
           <button type="button" class="btn btn-secondary" onclick="closeAdminModal('product-form-modal')">Hủy bỏ</button>
-          <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+          <button type="submit" class="btn btn-primary">Lưu sản phẩm VIP</button>
         </div>
       </form>
     </div>
@@ -268,7 +332,7 @@
   <div id="delete-confirm-modal" class="modal-backdrop">
     <div class="modal-container" style="max-width: 440px;">
       <div class="success-content" style="padding: 28px;">
-        <div class="success-icon" style="background-color: #fee2e2; color: var(--danger);">
+        <div class="success-icon" style="background-color: #fee2e2; color: var(--danger); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -291,6 +355,7 @@
 
   <!-- JavaScript Modules -->
   <script src="js/products.js"></script>
+  <script src="js/user-auth.js"></script>
   <script src="js/admin.js"></script>
 </body>
 </html>
