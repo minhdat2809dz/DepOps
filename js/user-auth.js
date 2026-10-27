@@ -268,6 +268,28 @@ function saveUserOrder(order) {
     });
     saveMasterOrders(masterOrders);
 
+    // 2b. Đồng bộ trực tiếp vào SQL Server (TechStoreDB.dbo.Orders)
+    if (typeof apiCreateOrder === 'function') {
+      apiCreateOrder({
+        orderCode: order.orderCode || order.id || ('TECH-' + Date.now()),
+        customerName: order.customerName || 'Khách Hàng',
+        customerPhone: order.customerPhone || order.phone || '0900000000',
+        customerAddress: order.customerAddress || order.address || 'Hà Nội',
+        paymentMethod: order.paymentMethod || order.payment || 'COD',
+        note: order.note || '',
+        items: order.items || [],
+        subtotal: order.subtotal || order.total || 0,
+        discount: order.discount || 0,
+        total: order.total || 0
+      }).then(res => {
+        if (res && res.success) {
+          console.log('✅ Đơn hàng đã được lưu thành công vào SQL Server (TechStoreDB)!');
+        }
+      }).catch(err => {
+        console.warn('Lưu đơn vào SQL Server lỗi:', err);
+      });
+    }
+
     // 3. Cộng điểm tích lũy VIP nếu có đăng nhập
     if (currentUser && currentUser.id !== 0) {
       const earnedPoints = Math.round(order.total / 10000); // 10k = 1 điểm

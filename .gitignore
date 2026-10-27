@@ -5,3 +5,12 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Node dependencies
+node_modules/
+server/node_modules/
+server/.env
+
+# Sensitive keys and secrets
+*.pem
+*.key

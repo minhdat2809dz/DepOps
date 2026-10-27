@@ -229,10 +229,24 @@ function updateDashboardStats(allProducts) {
 }
 
 /* ============================================================
-   BẢNG ĐƠN HÀNG
+   BẢNG ĐƠN HÀNG (Đồng bộ SQL Server)
    ============================================================ */
-function loadAndRenderAdminOrders() {
-  const masterOrders = getAllMasterOrders ? getAllMasterOrders() : [];
+async function loadAndRenderAdminOrders() {
+  let masterOrders = getAllMasterOrders ? getAllMasterOrders() : [];
+
+  // Lấy đơn hàng từ SQL Server nếu có kết nối
+  if (typeof apiGetOrders === 'function') {
+    try {
+      const sqlOrders = await apiGetOrders();
+      if (sqlOrders && Array.isArray(sqlOrders) && sqlOrders.length > 0) {
+        masterOrders = sqlOrders;
+        if (typeof saveMasterOrders === 'function') saveMasterOrders(sqlOrders);
+      }
+    } catch (e) {
+      console.warn('Lỗi lấy đơn từ SQL Server, dùng LocalStorage:', e);
+    }
+  }
+
   const tbody    = document.getElementById('admin-orders-tbody');
   const emptyBox = document.getElementById('admin-orders-empty');
 
@@ -247,9 +261,9 @@ function loadAndRenderAdminOrders() {
 
   tbody.innerHTML = masterOrders.map(order => {
     const statusClass = `order-status-${order.status || 'pending'}`;
-    const statusLabel = ORDER_STATUS_LABELS[order.status] || 'Chờ xác nhận';
+    const statusLabel = ORDER_STATUS_LABELS[order.status] || order.status || 'Chờ xác nhận';
     const itemsHtml = (order.items || []).map(it =>
-      `<div style="font-size:0.8rem; color: var(--text-muted);">• ${it.name} x${it.qty}</div>`
+      `<div style="font-size:0.8rem; color: var(--text-muted);">• ${it.name} x${it.qty || it.quantity || 1}</div>`
     ).join('');
     const orderDate = order.createdAt
       ? new Date(order.createdAt).toLocaleString('vi-VN')
@@ -259,22 +273,22 @@ function loadAndRenderAdminOrders() {
       banking: '🏦 Chuyển khoản',
       momo:    '💜 MoMo',
       vnpay:   '🔵 VNPay'
-    }[order.payment] || order.payment || '-';
+    }[order.paymentMethod || order.payment] || order.paymentMethod || order.payment || 'COD';
 
     return `
       <tr>
         <td>
-          <span style="font-family: monospace; font-size: 0.82rem; color: var(--accent-primary);">#${order.id || '-'}</span>
+          <span style="font-family: monospace; font-size: 0.82rem; color: var(--accent-primary);">#${order.orderCode || order.id || '-'}</span>
         </td>
         <td style="font-size: 0.83rem; white-space: nowrap;">${orderDate}</td>
         <td>
           <div style="font-weight: 600; font-size: 0.88rem;">${escapeAdminHtml(order.customerName || 'Khách')}</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted);">${escapeAdminHtml(order.email || '')}</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted);">${escapeAdminHtml(order.userEmail || order.email || '')}</div>
         </td>
         <td>
-          <div style="font-size: 0.82rem;">${escapeAdminHtml(order.phone || '-')}</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeAdminHtml(order.address || '')}">
-            ${escapeAdminHtml(order.address || '-')}
+          <div style="font-size: 0.82rem;">${escapeAdminHtml(order.customerPhone || order.phone || '-')}</div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeAdminHtml(order.customerAddress || order.address || '')}">
+            ${escapeAdminHtml(order.customerAddress || order.address || '-')}
           </div>
         </td>
         <td style="min-width: 180px;">${itemsHtml}</td>
@@ -287,7 +301,7 @@ function loadAndRenderAdminOrders() {
                   onchange="updateOrderStatus('${order.id}', this.value)"
                   title="Cập nhật trạng thái đơn hàng">
             ${Object.entries(ORDER_STATUS_LABELS).map(([val, label]) =>
-              `<option value="${val}" ${order.status === val ? 'selected' : ''}>${label}</option>`
+              `<option value="${val}" ${(order.status === val || order.status === label) ? 'selected' : ''}>${label}</option>`
             ).join('')}
           </select>
         </td>
@@ -296,19 +310,24 @@ function loadAndRenderAdminOrders() {
   }).join('');
 }
 
-/* Cập nhật trạng thái đơn hàng và lưu lại */
-function updateOrderStatus(orderId, newStatus) {
+/* Cập nhật trạng thái đơn hàng và lưu lại vào SQL Server */
+async function updateOrderStatus(orderId, newStatus) {
   const KEY = 'techstore_master_orders';
   try {
     let orders = JSON.parse(localStorage.getItem(KEY) || '[]');
-    const idx = orders.findIndex(o => o.id === orderId);
+    const idx = orders.findIndex(o => o.id === orderId || o.id === Number(orderId));
     if (idx > -1) {
       orders[idx].status = newStatus;
       localStorage.setItem(KEY, JSON.stringify(orders));
-      showToast(`Cập nhật trạng thái đơn #${orderId} thành công!`, 'success');
-      // Re-render để màu badge cập nhật
-      loadAndRenderAdminOrders();
     }
+
+    // Gửi cập nhật lên SQL Server
+    if (typeof apiUpdateOrderStatus === 'function') {
+      await apiUpdateOrderStatus(orderId, newStatus);
+    }
+
+    showToast(`Cập nhật trạng thái đơn #${orderId} thành công trên SQL Server!`, 'success');
+    loadAndRenderAdminOrders();
   } catch (err) {
     showToast('Lỗi khi cập nhật trạng thái!', 'warning');
   }
@@ -426,6 +445,14 @@ function handleProductFormSubmit(e) {
         gift
       };
       saveStoredProducts(allProducts);
+
+      // Đồng bộ cập nhật vào SQL Server
+      if (typeof apiUpdateProduct === 'function') {
+        apiUpdateProduct(editingProductId, allProducts[index]).then(res => {
+          if (res && res.success) console.log('✅ Đã cập nhật sản phẩm vào SQL Server!');
+        });
+      }
+
       showToast(`Đã cập nhật sản phẩm "${name}" thành công!`, 'success');
     }
   } else {
@@ -456,6 +483,22 @@ function handleProductFormSubmit(e) {
     };
     allProducts.unshift(newProduct);
     saveStoredProducts(allProducts);
+
+    // Đồng bộ thêm mới vào SQL Server
+    if (typeof apiCreateProduct === 'function') {
+      apiCreateProduct(newProduct).then(res => {
+        if (res && res.success) {
+          console.log('✅ Đã thêm sản phẩm mới vào SQL Server (TechStoreDB)!');
+          // Cập nhật lại ID từ DB nếu có
+          if (res.data && res.data.id) {
+            newProduct.id = res.data.id;
+            saveStoredProducts(allProducts);
+            loadAndRenderAdminTable();
+          }
+        }
+      });
+    }
+
     showToast(`Đã thêm sản phẩm "${name}" thành công!`, 'success');
   }
 
@@ -487,6 +530,14 @@ function executeDeleteProduct() {
   allProducts = allProducts.filter(p => p.id !== deletingProductId);
 
   saveStoredProducts(allProducts);
+
+  // Xóa trực tiếp trên SQL Server
+  if (typeof apiDeleteProduct === 'function') {
+    apiDeleteProduct(deletingProductId).then(res => {
+      if (res && res.success) console.log(`✅ Đã xóa sản phẩm #${deletingProductId} khỏi SQL Server!`);
+    });
+  }
+
   closeAdminModal('delete-confirm-modal');
   loadAndRenderAdminTable();
 
@@ -497,11 +548,12 @@ function executeDeleteProduct() {
 /* ============================================================
    KHÔI PHỤC DỮ LIỆU MẪU
    ============================================================ */
-function triggerResetDefaultData() {
-  if (confirm('Bạn có chắc chắn muốn khôi phục lại danh sách 20 sản phẩm mẫu VIP gốc không? Các thay đổi trước đó sẽ bị đặt lại.')) {
-    resetDefaultProducts();
+async function triggerResetDefaultData() {
+  if (confirm('Bạn có chắc chắn muốn khôi phục lại danh sách 38 sản phẩm mẫu VIP gốc không? Dữ liệu trên SQL Server và Website sẽ được đặt lại.')) {
+    showToast('Đang khôi phục 38 sản phẩm từ SQL Server...', 'info');
+    await resetDefaultProducts();
     loadAndRenderAdminTable();
-    showToast('Đã khôi phục 20 sản phẩm mẫu VIP PRO thành công!', 'success');
+    showToast('Đã khôi phục 38 sản phẩm mẫu VIP PRO thành công!', 'success');
   }
 }
 
