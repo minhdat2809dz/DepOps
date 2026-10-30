@@ -1738,7 +1738,7 @@ function getStoredProducts() {
     const version = localStorage.getItem(PRODUCTS_VERSION_KEY);
     const raw = localStorage.getItem(PRODUCTS_STORAGE_KEY);
     
-    // Nếu chưa nâng cấp lên phiên bản VIP PRO, cập nhật tự động
+    // Nếu chưa nâng cấp lên phiên bản mới hoặc thiếu dữ liệu
     if (version !== CURRENT_VERSION || !raw) {
       saveStoredProducts(DEFAULT_PRODUCTS);
       localStorage.setItem(PRODUCTS_VERSION_KEY, CURRENT_VERSION);
@@ -1746,8 +1746,13 @@ function getStoredProducts() {
     }
 
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
+    if (Array.isArray(parsed) && parsed.length >= DEFAULT_PRODUCTS.length) {
       return parsed;
+    } else {
+      // Tự động nâng cấp khi số lượng sản phẩm mới nhiều hơn bộ nhớ đệm cũ (ví dụ: từ 20/38 lên 60)
+      saveStoredProducts(DEFAULT_PRODUCTS);
+      localStorage.setItem(PRODUCTS_VERSION_KEY, CURRENT_VERSION);
+      return [...DEFAULT_PRODUCTS];
     }
   } catch (e) {
     console.error('Lỗi khi đọc danh sách sản phẩm từ LocalStorage:', e);

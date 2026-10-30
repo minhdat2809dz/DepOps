@@ -10,12 +10,16 @@ let deletingProductId = null;
 
 // Bản đồ tên hiển thị danh mục (đã bổ sung gaming)
 const CATEGORY_MAP = {
-  phone:  'Điện thoại',
-  laptop: 'Laptop',
-  audio:  'Âm thanh',
-  watch:  'Đồng hồ',
-  gaming: 'Gaming & Gear VIP',
-  other:  'Khác'
+  phone:       'Điện thoại',
+  laptop:      'Laptop',
+  tablet:      'Máy tính bảng',
+  audio:       'Âm thanh',
+  watch:       'Đồng hồ',
+  gaming:      'Gaming & VR',
+  camera:      'Máy ảnh & Flycam',
+  smarthome:   'Nhà thông minh',
+  accessories: 'Phụ kiện & Màn hình',
+  other:       'Khác'
 };
 
 // Trạng thái đơn hàng
@@ -549,11 +553,11 @@ function executeDeleteProduct() {
    KHÔI PHỤC DỮ LIỆU MẪU
    ============================================================ */
 async function triggerResetDefaultData() {
-  if (confirm('Bạn có chắc chắn muốn khôi phục lại danh sách 38 sản phẩm mẫu VIP gốc không? Dữ liệu trên SQL Server và Website sẽ được đặt lại.')) {
-    showToast('Đang khôi phục 38 sản phẩm từ SQL Server...', 'info');
+  if (confirm('Bạn có chắc chắn muốn khôi phục lại danh sách 60 sản phẩm mẫu VIP gốc không? Dữ liệu trên SQL Server và Website sẽ được đặt lại.')) {
+    showToast('Đang khôi phục 60 sản phẩm từ SQL Server...', 'info');
     await resetDefaultProducts();
     loadAndRenderAdminTable();
-    showToast('Đã khôi phục 38 sản phẩm mẫu VIP PRO thành công!', 'success');
+    showToast('Đã khôi phục 60 sản phẩm mẫu VIP PRO thành công!', 'success');
   }
 }
 
