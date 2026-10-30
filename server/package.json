@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "seed": "node seed_products.js",
-    "test": "node test_conn.js"
+    "seed:sql": "node seed_products.js",
+    "seed:mongo": "node seed_mongodb.js"
   },
   "keywords": [
     "techstore",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mongodb": "^7.7.0",
     "mssql": "^11.0.1"
   }
 }
