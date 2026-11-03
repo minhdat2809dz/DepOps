@@ -1,3 +1,6 @@
+# IDE & Editor Files
+.vs/
+
 # Operating System Files
 Thumbs.db
 Desktop.ini
